@@ -1,5 +1,15 @@
 export const tokens = {
   colorPrimary: "var(--color-primary)",
+  colorPrimary600: "var(--color-primary-600)",
   colorBackground: "var(--color-background)",
+  colorCard: "var(--color-card)",
+  colorText: "var(--color-text)",
+  colorMuted: "var(--color-muted)",
+  colorBorder: "var(--color-border)",
   fontHeading: "var(--font-heading)",
+  radiusSm: "var(--radius-sm)",
+  radiusMd: "var(--radius-md)",
+  radiusLg: "var(--radius-lg)",
+  shadowSoft: "var(--shadow-soft)",
+  shadowLift: "var(--shadow-lift)",
 };
