@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { SearchInput } from "@/components/ui/search-input";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Code } from "lucide-react";
 import { useTheme } from "@/contexts/theme-context";
 
 export function TopNavigation() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, setTheme } = useTheme();
 
   return (
     <header className="w-full border-b border-border bg-background/85 p-4">
@@ -24,6 +24,15 @@ export function TopNavigation() {
             className="grid size-11 place-items-center rounded-2xl border border-border bg-card shadow-sm"
           >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+
+          <button
+            aria-label="Developer theme"
+            title="Toggle developer theme"
+            onClick={() => setTheme(theme === "dev" ? "light" : "dev")}
+            className="grid size-11 place-items-center rounded-2xl border border-border bg-card shadow-sm"
+          >
+            <Code size={16} />
           </button>
 
           <Link to="/profile" className="rounded-full bg-muted p-2 text-sm font-bold">

@@ -1,0 +1,23 @@
+/* Developer theme adjustments */
+.dev {
+  --color-primary: #006bff;
+  --color-primary-600: #004bb5;
+  --color-background: #0b1020;
+  --color-card: #0f1723;
+  --color-text: #e6eef8;
+  --font-heading: "Courier New", ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Noto Mono", monospace;
+}
+
+.dev .font-heading { font-family: var(--font-heading); }
+.dev .bg-card { background: var(--color-card); }
+.dev .text-primary { color: var(--color-primary); }
+.dev .bg-primary { background: var(--color-primary); }
+.dev .shadow-lift { box-shadow: 0 12px 40px rgba(0, 107, 255, 0.14); }
+
+/* Small visual polish for dev theme: subtle terminal look for code blocks */
+.dev pre, .dev code {
+  background: rgba(0,0,0,0.25);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-family: var(--font-heading);
+}
