@@ -78,6 +78,10 @@ input {
 .shadow-soft { box-shadow: var(--shadow-soft); }
 .shadow-lift { box-shadow: var(--shadow-lift); }
 
+/* Smooth transitions for subtle motion */
+.smooth-transition { transition: transform 280ms cubic-bezier(.2,.9,.2,1), box-shadow 280ms cubic-bezier(.2,.9,.2,1); }
+img { transition: transform 280ms cubic-bezier(.2,.9,.2,1); }
+
 /* Focus states */
 :focus {
   outline: none;
