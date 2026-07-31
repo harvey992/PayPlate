@@ -1,0 +1,41 @@
+/* 3D helper styles, reflections, and performance fallbacks */
+.hero-3d-placeholder {
+  width: 100%;
+  height: 420px;
+  border-radius: 1.5rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  display: grid;
+  place-items: center;
+}
+
+/* Wallet 3D CSS tilt fallback */
+.wallet-3d {
+  perspective: 1200px;
+}
+.wallet-3d .card {
+  transform-style: preserve-3d;
+  transition: transform 240ms cubic-bezier(.2,.9,.2,1), box-shadow 240ms cubic-bezier(.2,.9,.2,1);
+}
+.wallet-reflection {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2), transparent);
+  mix-blend-mode: overlay;
+  transform: translateZ(40px) rotateX(180deg);
+}
+
+/* coins and badges baseline */
+.coin {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff 0%, rgba(255,255,255,0.25) 6%, rgba(255,255,255,0.04) 60%), linear-gradient(180deg,#ffd26e,#ffb84a);
+  display: inline-grid;
+  place-items: center;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wallet-3d .card, .coin, .badge-3d { transition: none !important; animation: none !important; }
+}
