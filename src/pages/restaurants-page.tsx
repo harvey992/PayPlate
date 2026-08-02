@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Filter, SlidersHorizontal } from "lucide-react";
+import { ListFilter as Filter, SlidersHorizontal } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { RestaurantCard } from "@/components/domain/restaurant-card";
 import { Skeleton } from "@/components/ui/skeleton";

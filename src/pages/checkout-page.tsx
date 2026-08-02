@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Wallet, Tag, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Wallet, Tag, ArrowRight, CircleCheck as CheckCircle2 } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

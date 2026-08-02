@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Receipt, Clock, CheckCircle2, Package, XCircle, RotateCcw } from "lucide-react";
+import { Receipt, Clock, CircleCheck as CheckCircle2, Package, Circle as XCircle, RotateCcw } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

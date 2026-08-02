@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Trophy, CheckCircle2, Lock } from "lucide-react";
+import { Trophy, CircleCheck as CheckCircle2, Lock } from "lucide-react";
 import type { Reward } from "@/types/payplate";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
