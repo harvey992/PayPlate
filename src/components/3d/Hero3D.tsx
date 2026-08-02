@@ -1,11 +1,10 @@
 import { Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { MeshStandardMaterial } from "three";
-import { useRef, useMemo } from "react";
+import { useRef } from "react";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
 function FloatingPhone() {
-  const ref = useRef<any>();
+  const ref = useRef<any>(null);
   const reduced = usePrefersReducedMotion();
 
   useFrame(({ clock }) => {
@@ -29,8 +28,8 @@ function FloatingPhone() {
   );
 }
 
-function FloatingTorus({ speed = 1.2, radius = 0.6, color = "#ffb86b" }) {
-  const ref = useRef<any>();
+function FloatingTorus({ speed = 1.2, radius = 0.6, color = "#ffb86b" }: { speed?: number; radius?: number; color?: string }) {
+  const ref = useRef<any>(null);
   const reduced = usePrefersReducedMotion();
   useFrame(({ clock }) => {
     if (!ref.current || reduced) return;

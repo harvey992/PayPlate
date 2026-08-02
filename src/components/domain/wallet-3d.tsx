@@ -7,25 +7,23 @@ export function Wallet3D({ children, className }: { children?: React.ReactNode; 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
     function onMove(e: MouseEvent) {
+      if (!el) return;
       const rect = el.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = (e.clientY - rect.top) / rect.height;
-      const rx = (y - 0.5) * 8; // rotateX
-      const ry = (x - 0.5) * -12; // rotateY
+      const rx = (y - 0.5) * 8;
+      const ry = (x - 0.5) * -12;
       const card = el.querySelector<HTMLElement>(".card");
       if (card) card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(12px)`;
     }
-
     function onLeave() {
+      if (!el) return;
       const card = el.querySelector<HTMLElement>(".card");
       if (card) card.style.transform = `rotateX(0deg) rotateY(0deg) translateZ(0px)`;
     }
-
     el.addEventListener("mousemove", onMove);
     el.addEventListener("mouseleave", onLeave);
-
     return () => {
       el.removeEventListener("mousemove", onMove);
       el.removeEventListener("mouseleave", onLeave);
