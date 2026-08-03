@@ -26,46 +26,39 @@ export function RewardCard({ reward, onRedeem }: { reward: Reward; onRedeem?: ()
   const config = tierConfig[reward.tier];
 
   return (
-    <Card className="overflow-hidden p-0">
-      <div className={cn("relative bg-gradient-to-br p-5", config.bg, config.glow)}>
-        <div className="absolute right-3 top-3 rounded-full bg-white/20 px-2 py-1 text-[10px] font-black uppercase tracking-wide text-white">
-          {reward.tier}
-        </div>
-        <div className="flex items-center gap-3">
-          <motion.div
-            animate={reduced ? undefined : { rotateY: [0, 360] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-            className="grid size-14 place-items-center rounded-2xl bg-white/20 text-white backdrop-blur-sm"
-          >
-            {iconMap[reward.icon]}
-          </motion.div>
-          <div>
-            <h4 className="font-heading text-lg font-black text-white">{reward.title}</h4>
-            <p className="text-xs text-white/80">{reward.description}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="p-4">
-        {reward.isEarned ? (
-          <Button variant="primary" className="w-full" onClick={onRedeem}>
-            Redeem · {reward.pointsCost} pts
-          </Button>
-        ) : (
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs font-bold">
-              <span className="text-muted-foreground">{reward.pointsCost} pts needed</span>
-              <span className={config.label}>{reward.progressPercent ?? 0}%</span>
+    <Card className={cn("relative overflow-hidden border-0 bg-gradient-to-br p-5 text-white", config.bg, config.glow)}>
+      <div className="absolute inset-0 bg-black/10" />
+      <div className="relative z-10 flex flex-col gap-4">
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
+              {iconMap[reward.icon] ?? <Diamond size={28} />}
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-muted">
-              <div
-                className="h-full rounded-full bg-primary transition-all duration-500"
-                style={{ width: `${reward.progressPercent ?? 0}%` }}
-              />
+            <div>
+              <h3 className="text-lg font-bold">{reward.title}</h3>
+              <p className={cn("text-xs font-semibold uppercase tracking-wide", config.label)}>{reward.tier} Tier</p>
             </div>
           </div>
-        )}
+          <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold backdrop-blur-sm">
+            {reward.pointsCost} pts
+          </span>
+        </div>
+        <p className="text-sm text-white/80">{reward.description}</p>
+        <Button
+          onClick={onRedeem}
+          className="w-full bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm"
+          disabled={reward.redeemed}
+        >
+          {reward.redeemed ? "Redeemed" : "Redeem Reward"}
+        </Button>
       </div>
+      {!reduced && (
+        <motion.div
+          className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10"
+          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+      )}
     </Card>
   );
 }
