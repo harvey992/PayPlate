@@ -26,7 +26,7 @@ export function SettingsPage() {
             <h3 className="font-heading font-black">Appearance</h3>
           </div>
           <div className="mt-4 flex gap-3">
-            {(["light", "dark"] as const).map((t) => (
+            {(["light", "dark", "dev"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setTheme(t)}

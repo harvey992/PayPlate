@@ -3,8 +3,8 @@ import { ThemeProvider } from "@/contexts/theme-context";
 import { AuthProvider } from "@/contexts/auth-context";
 import { CartProvider } from "@/contexts/cart-context";
 import { WalletProvider } from "@/contexts/wallet-context";
+import { CreditProvider } from "@/contexts/credit-context";
 import { RestaurantsProvider } from "@/contexts/restaurants-context";
-import { FavoritesProvider } from "@/contexts/favorites-context";
 import { OrdersProvider } from "@/contexts/orders-context";
 import { RewardsProvider } from "@/contexts/rewards-context";
 import { SettingsProvider } from "@/contexts/settings-context";
@@ -20,11 +20,11 @@ function RootComponent() {
         <ToastProvider>
           <AuthProvider>
             <RestaurantsProvider>
-              <FavoritesProvider>
               <WalletProvider>
-                <OrdersProvider>
-                  <RewardsProvider>
-                    <CartProvider>
+                <CreditProvider>
+                  <OrdersProvider>
+                    <RewardsProvider>
+                      <CartProvider>
                       <SettingsProvider>
                         <TopNavigation />
                         <Outlet />
@@ -33,8 +33,8 @@ function RootComponent() {
                     </CartProvider>
                   </RewardsProvider>
                 </OrdersProvider>
+              </CreditProvider>
               </WalletProvider>
-              </FavoritesProvider>
             </RestaurantsProvider>
           </AuthProvider>
         </ToastProvider>

@@ -3,7 +3,7 @@ import type { Transaction } from "@/types/payplate";
 import { cn } from "@/lib/utils";
 
 export function TransactionRow({ transaction }: { transaction: Transaction }) {
-  const isPositive = transaction.type === "topup" || transaction.type === "refund" || transaction.type === "reward";
+  const isPositive = transaction.type === "topup" || transaction.type === "refund";
 
   return (
     <div className="flex items-center justify-between py-3">
@@ -24,7 +24,7 @@ export function TransactionRow({ transaction }: { transaction: Transaction }) {
         </div>
       </div>
       <span className={cn("font-semibold", isPositive ? "text-green-500" : "text-red-500")}>
-        {isPositive ? "+" : "-"}R{(Math.abs(transaction.amountCents) / 100).toFixed(2)}
+        {isPositive ? "+" : "-"}${Math.abs(transaction.amountCents / 100).toFixed(2)}
       </span>
     </div>
   );

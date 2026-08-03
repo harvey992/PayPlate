@@ -58,7 +58,7 @@ export function VerificationPage() {
     <AppShell>
       <div className="mx-auto max-w-2xl space-y-6">
         <div className="flex items-center gap-3">
-          <button onClick={() => navigate("/profile")} aria-label="Back to profile" className="grid size-10 place-items-center rounded-xl bg-card ring-1 ring-border">
+          <button onClick={() => navigate("/profile")} className="grid size-10 place-items-center rounded-xl bg-card ring-1 ring-border">
             <ArrowLeft size={18} />
           </button>
           <div>
