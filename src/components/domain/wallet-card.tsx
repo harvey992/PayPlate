@@ -3,13 +3,12 @@ import { Wallet, ArrowUpRight, ArrowDownLeft } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
-import { cn } from "@/lib/utils";
 
 export function WalletCard({ balance, onTopUp, onSend }: { balance: number; onTopUp?: () => void; onSend?: () => void }) {
   const reduced = usePrefersReducedMotion();
 
   return (
-    <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 p-6 text-white shadow-lg">
+    <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-emerald-500 to-teal-700 p-6 text-white shadow-lg">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.15),transparent_60%)]" />
       <div className="relative z-10">
         <div className="flex items-center justify-between">
