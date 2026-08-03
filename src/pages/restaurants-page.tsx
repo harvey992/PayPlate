@@ -20,6 +20,7 @@ const CATEGORIES = ["All", "Burgers", "Pizza", "Bowls", "Coffee", "Sushi", "Rame
 export function RestaurantsPage() {
   const [searchParams] = useSearchParams();
   const initialQuery = searchParams.get("q") ?? "";
+  const initialFavoritesOnly = searchParams.get("favorites") === "true";
   const { restaurants, isLoading, error, search, retry } = useRestaurants();
   const { favoriteIds } = useFavorites();
   const reduced = usePrefersReducedMotion();
@@ -29,7 +30,7 @@ export function RestaurantsPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [filtered, setFiltered] = useState<Restaurant[]>([]);
   const [showFilters, setShowFilters] = useState(false);
-  const [favoritesOnly, setFavoritesOnly] = useState(false);
+  const [favoritesOnly, setFavoritesOnly] = useState(initialFavoritesOnly);
 
   const visible = favoritesOnly ? filtered.filter((r) => favoriteIds.includes(r.id)) : filtered;
 

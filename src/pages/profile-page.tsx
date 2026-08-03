@@ -41,7 +41,7 @@ export function ProfilePage() {
     { icon: <Settings size={20} />, label: "Settings", to: "/settings" },
     { icon: <Bell size={20} />, label: "Notifications", to: "/notifications" },
     { icon: <CreditCard size={20} />, label: "Payment methods", to: "/wallet" },
-    { icon: <Heart size={20} />, label: "Saved restaurants", to: "/restaurants" },
+    { icon: <Heart size={20} />, label: "Saved restaurants", to: "/restaurants?favorites=true" },
     { icon: <LifeBuoy size={20} />, label: "Help & Support", to: "/support" },
   ];
 
