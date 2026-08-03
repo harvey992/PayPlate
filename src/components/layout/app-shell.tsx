@@ -1,21 +1,17 @@
-import type { ReactNode } from "react";
-import { Sidebar, BottomNav } from "./navigation-bar";
+import { Outlet } from "react-router-dom";
+import { Sidebar } from "./sidebar";
+import { TopBar } from "./top-bar";
 
-/**
- * Responsive app chrome wrapped around every authenticated page's content:
- * a fixed left Sidebar on desktop (lg+), a fixed bottom tab bar with a
- * centre QR-pay button on mobile. The global header/search bar
- * (TopNavigation) is already rendered once in src/routes/__root.tsx, so
- * this only adds the primary section nav.
- */
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex h-screen overflow-hidden bg-background">
       <Sidebar />
-      <main className="lg:pl-64">
-        <div className="pb-24 lg:pb-8">{children}</div>
-      </main>
-      <BottomNav />
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <TopBar />
+        <main className="flex-1 overflow-y-auto p-6">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }

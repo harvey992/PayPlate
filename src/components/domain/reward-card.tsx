@@ -47,9 +47,9 @@ export function RewardCard({ reward, onRedeem }: { reward: Reward; onRedeem?: ()
         <Button
           onClick={onRedeem}
           className="w-full bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm"
-          disabled={reward.isEarned}
+          disabled={reward.redeemed}
         >
-          {reward.isEarned ? "Redeemed" : "Redeem Reward"}
+          {reward.redeemed ? "Redeemed" : "Redeem Reward"}
         </Button>
       </div>
       {!reduced && (

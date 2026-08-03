@@ -4,7 +4,6 @@ import { AuthProvider } from "@/contexts/auth-context";
 import { CartProvider } from "@/contexts/cart-context";
 import { WalletProvider } from "@/contexts/wallet-context";
 import { RestaurantsProvider } from "@/contexts/restaurants-context";
-import { FavoritesProvider } from "@/contexts/favorites-context";
 import { OrdersProvider } from "@/contexts/orders-context";
 import { RewardsProvider } from "@/contexts/rewards-context";
 import { SettingsProvider } from "@/contexts/settings-context";
@@ -20,7 +19,6 @@ function RootComponent() {
         <ToastProvider>
           <AuthProvider>
             <RestaurantsProvider>
-              <FavoritesProvider>
               <WalletProvider>
                 <OrdersProvider>
                   <RewardsProvider>
@@ -34,7 +32,6 @@ function RootComponent() {
                   </RewardsProvider>
                 </OrdersProvider>
               </WalletProvider>
-              </FavoritesProvider>
             </RestaurantsProvider>
           </AuthProvider>
         </ToastProvider>
