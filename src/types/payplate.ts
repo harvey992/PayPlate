@@ -150,3 +150,72 @@ export interface Offer {
   image: string;
   isStudentExclusive: boolean;
 }
+
+export type CreditStatus = "active" | "frozen" | "suspended";
+export type CreditTier = "bronze" | "silver" | "gold" | "diamond" | "platinum";
+export type RepaymentType = "manual" | "partial" | "scheduled" | "auto_debit" | "early";
+export type RepaymentStatus = "pending" | "processing" | "successful" | "failed" | "cancelled";
+export type RepaymentMethod = "wallet" | "card" | "bank_transfer" | "instant_eft";
+
+export interface CreditAccount {
+  id: string;
+  creditLimitCents: number;
+  usedCents: number;
+  interestBps: number;
+  monthlyDueDate: number;
+  status: CreditStatus;
+  emergencyCreditCents: number;
+  emergencyUsedCents: number;
+  freezeReason?: string;
+}
+
+export interface CreditScore {
+  id: string;
+  score: number;
+  tier: CreditTier;
+  riskScore: number;
+  trustScore: number;
+  factors: Record<string, number>;
+  createdAt: string;
+}
+
+export interface Repayment {
+  id: string;
+  creditAccountId: string;
+  amountCents: number;
+  type: RepaymentType;
+  status: RepaymentStatus;
+  paymentMethod: RepaymentMethod;
+  dueDate?: string;
+  paidAt?: string;
+  lateFeeCents: number;
+  description: string;
+  createdAt: string;
+}
+
+export type CreditEventType =
+  | "limit_increase" | "limit_decrease" | "freeze" | "unfreeze"
+  | "suspension" | "reactivation" | "late_fee_applied" | "grace_period_started"
+  | "repayment_reminder" | "credit_used" | "credit_repaid"
+  | "emergency_credit_granted" | "credit_expired";
+
+export interface CreditEvent {
+  id: string;
+  eventType: CreditEventType;
+  description: string;
+  metadata: Record<string, unknown>;
+  createdAt: string;
+}
+
+export interface CreditState {
+  account: CreditAccount | null;
+  latestScore: CreditScore | null;
+  repayments: Repayment[];
+  events: CreditEvent[];
+  availableCents: number;
+  utilizationPercent: number;
+  isLoading: boolean;
+  refresh: () => void;
+  useCredit: (amountCents: number, description: string) => Promise<boolean>;
+  repay: (amountCents: number, method: RepaymentMethod, type: RepaymentType) => Promise<boolean>;
+}
