@@ -152,9 +152,13 @@ export interface Offer {
 }
 
 export type CreditStatus = "active" | "frozen" | "suspended";
+
 export type CreditTier = "bronze" | "silver" | "gold" | "diamond" | "platinum";
+
 export type RepaymentType = "manual" | "partial" | "scheduled" | "auto_debit" | "early";
+
 export type RepaymentStatus = "pending" | "processing" | "successful" | "failed" | "cancelled";
+
 export type RepaymentMethod = "wallet" | "card" | "bank_transfer" | "instant_eft";
 
 export interface CreditAccount {
