@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 export function TransactionCard({ transaction }: { transaction: Transaction }) {
-  const isPositive = transaction.type === "credit";
+  const isPositive = transaction.type === "topup" || transaction.type === "refund" || transaction.type === "reward";
 
   return (
     <Card className="p-4">
@@ -26,7 +26,7 @@ export function TransactionCard({ transaction }: { transaction: Transaction }) {
           </div>
         </div>
         <span className={cn("text-lg font-bold", isPositive ? "text-green-500" : "text-red-500")}>
-          {isPositive ? "+" : "-"}${Math.abs(transaction.amount).toFixed(2)}
+          {isPositive ? "+" : "-"}R{(Math.abs(transaction.amountCents) / 100).toFixed(2)}
         </span>
       </div>
     </Card>

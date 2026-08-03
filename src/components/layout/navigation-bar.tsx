@@ -16,7 +16,7 @@ const NAV_ITEMS: { to: string; label: string; icon: LucideIcon }[] = [
   { to: "/profile",  label: "Profile", icon: User     },
 ];
 
-const SIDEBAR_ITEMS
+const SIDEBAR_ITEMS: { to: string; label: string; icon: LucideIcon }[] = [
   { to: "/home",          label: "Home",          icon: Home    },
   { to: "/restaurants",   label: "Restaurants",   icon: Home    },
   { to: "/orders",        label: "Orders",        icon: Receipt },
