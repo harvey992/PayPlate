@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "@/lib/router-compat";
+import { useSearchParams, useNavigate } from "@/lib/router-compat";
 import { motion } from "framer-motion";
-import { Search, SlidersHorizontal, X } from "lucide-react";
+import { Search, SlidersHorizontal, X, Heart } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/ui/empty-state";
 import { RestaurantCard } from "@/components/domain/restaurant-card";
 import { useRestaurants } from "@/contexts/restaurants-context";
+import { useFavorites } from "@/contexts/favorites-context";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import type { Restaurant } from "@/types/payplate";
 
@@ -19,13 +20,19 @@ const CATEGORIES = ["All", "Burgers", "Pizza", "Bowls", "Coffee", "Sushi", "Rame
 export function RestaurantsPage() {
   const [searchParams] = useSearchParams();
   const initialQuery = searchParams.get("q") ?? "";
+  const initialFavoritesOnly = searchParams.get("favorites") === "true";
   const { restaurants, isLoading, error, search, retry } = useRestaurants();
+  const { favoriteIds } = useFavorites();
   const reduced = usePrefersReducedMotion();
+  const navigate = useNavigate();
 
   const [query, setQuery] = useState(initialQuery);
   const [activeCategory, setActiveCategory] = useState("All");
   const [filtered, setFiltered] = useState<Restaurant[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+  const [favoritesOnly, setFavoritesOnly] = useState(initialFavoritesOnly);
+
+  const visible = favoritesOnly ? filtered.filter((r) => favoriteIds.includes(r.id)) : filtered;
 
   useEffect(() => {
     setFiltered(restaurants);
@@ -105,9 +112,20 @@ export function RestaurantsPage() {
               {cat}
             </button>
           ))}
-          {(activeCategory !== "All" || query) && (
+          <button
+            onClick={() => setFavoritesOnly((v) => !v)}
+            className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold transition-all duration-200 ${
+              favoritesOnly
+                ? "bg-danger text-white shadow-lift"
+                : "bg-card text-muted-foreground ring-1 ring-border hover:text-text"
+            }`}
+          >
+            <Heart size={14} className={favoritesOnly ? "fill-white" : ""} />
+            Favorites{favoriteIds.length > 0 ? ` (${favoriteIds.length})` : ""}
+          </button>
+          {(activeCategory !== "All" || query || favoritesOnly) && (
             <button
-              onClick={clearFilters}
+              onClick={() => { clearFilters(); setFavoritesOnly(false); }}
               className="inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-bold text-danger hover:underline"
             >
               <X size={14} /> Clear
@@ -127,23 +145,33 @@ export function RestaurantsPage() {
             description={error}
             action={<Button onClick={retry}>Try again</Button>}
           />
-        ) : filtered.length === 0 ? (
+        ) : visible.length === 0 ? (
           <EmptyState
-            icon={<Search size={32} />}
-            title="No restaurants found"
-            description="Try a different search or category."
-            action={<Button onClick={clearFilters}>Clear filters</Button>}
+            icon={favoritesOnly ? <Heart size={32} /> : <Search size={32} />}
+            title={favoritesOnly ? "No favorites yet" : "No restaurants found"}
+            description={
+              favoritesOnly
+                ? "Tap the heart on a restaurant to save it here."
+                : "Try a different search or category."
+            }
+            action={
+              favoritesOnly ? (
+                <Button onClick={() => setFavoritesOnly(false)}>Browse restaurants</Button>
+              ) : (
+                <Button onClick={clearFilters}>Clear filters</Button>
+              )
+            }
           />
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((r, i) => (
+            {visible.map((r, i) => (
               <motion.div
                 key={r.id}
                 initial={reduced ? undefined : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
               >
-                <RestaurantCard restaurant={r} />
+                <RestaurantCard restaurant={r} onClick={() => navigate(`/restaurants/${r.id}`)} />
               </motion.div>
             ))}
           </div>

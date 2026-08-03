@@ -302,7 +302,7 @@ export function Dashboard() {
             <div className="scroll-snap-x lg:grid lg:grid-cols-3 lg:gap-4">
               {nearby.slice(0, 4).map((r) => (
                 <div key={r.id} className="w-64 shrink-0 lg:w-auto">
-                  <RestaurantCard restaurant={r} />
+                  <RestaurantCard restaurant={r} onClick={() => navigate(`/restaurants/${r.id}`)} />
                 </div>
               ))}
             </div>
@@ -326,7 +326,7 @@ export function Dashboard() {
                 .slice(0, 4)
                 .map((r) => (
                   <div key={r.id} className="w-64 shrink-0 lg:w-auto">
-                    <RestaurantCard restaurant={r} />
+                    <RestaurantCard restaurant={r} onClick={() => navigate(`/restaurants/${r.id}`)} />
                   </div>
                 ))}
             </div>
