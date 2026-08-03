@@ -21,6 +21,7 @@ import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as RepaymentRouteImport } from './routes/repayment'
 import { Route as RewardsRouteImport } from './routes/rewards'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SupportRouteImport } from './routes/support'
@@ -90,6 +91,11 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RepaymentRoute = RepaymentRouteImport.update({
+  id: '/repayment',
+  path: '/repayment',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RewardsRoute = RewardsRouteImport.update({
   id: '/rewards',
   path: '/rewards',
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
+  '/repayment': typeof RepaymentRoute
   '/rewards': typeof RewardsRoute
   '/settings': typeof SettingsRoute
   '/support': typeof SupportRoute
@@ -166,6 +173,7 @@ export interface FileRoutesByTo {
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
+  '/repayment': typeof RepaymentRoute
   '/rewards': typeof RewardsRoute
   '/settings': typeof SettingsRoute
   '/support': typeof SupportRoute
@@ -189,6 +197,7 @@ export interface FileRoutesById {
   '/orders': typeof OrdersRoute
   '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
+  '/repayment': typeof RepaymentRoute
   '/rewards': typeof RewardsRoute
   '/settings': typeof SettingsRoute
   '/support': typeof SupportRoute
@@ -213,6 +222,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/profile'
     | '/register'
+    | '/repayment'
     | '/rewards'
     | '/settings'
     | '/support'
@@ -235,6 +245,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/profile'
     | '/register'
+    | '/repayment'
     | '/rewards'
     | '/settings'
     | '/support'
@@ -257,6 +268,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/profile'
     | '/register'
+    | '/repayment'
     | '/rewards'
     | '/settings'
     | '/support'
@@ -280,6 +292,7 @@ export interface RootRouteChildren {
   OrdersRoute: typeof OrdersRoute
   ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
+  RepaymentRoute: typeof RepaymentRoute
   RewardsRoute: typeof RewardsRoute
   SettingsRoute: typeof SettingsRoute
   SupportRoute: typeof SupportRoute
@@ -376,6 +389,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/repayment': {
+      id: '/repayment'
+      path: '/repayment'
+      fullPath: '/repayment'
+      preLoaderRoute: typeof RepaymentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rewards': {
       id: '/rewards'
       path: '/rewards'
@@ -448,6 +468,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrdersRoute: OrdersRoute,
   ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
+  RepaymentRoute: RepaymentRoute,
   RewardsRoute: RewardsRoute,
   SettingsRoute: SettingsRoute,
   SupportRoute: SupportRoute,
