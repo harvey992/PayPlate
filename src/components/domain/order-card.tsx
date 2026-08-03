@@ -1,17 +1,17 @@
 import { motion } from "framer-motion";
-import { Clock, CheckCircle2, ChefHat } from "lucide-react";
-import type { Order } from "@/types/payplate";
+import { Clock, CheckCircle2, ChefHat, XCircle } from "lucide-react";
+import type { Order, OrderStatus } from "@/types/payplate";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { cn } from "@/lib/utils";
 
-const statusConfig = {
+const statusConfig: Record<OrderStatus, { icon: typeof Clock; label: string; color: string; bg: string }> = {
   pending: { icon: Clock, label: "Pending", color: "text-amber-500", bg: "bg-amber-500/10" },
   preparing: { icon: ChefHat, label: "Preparing", color: "text-blue-500", bg: "bg-blue-500/10" },
   ready: { icon: CheckCircle2, label: "Ready", color: "text-green-500", bg: "bg-green-500/10" },
-  completed: { icon: CheckCircle2, label: "Completed", color: "text-slate-400", bg: "bg-slate-400/10" },
-  cancelled: { icon: Clock, label: "Cancelled", color: "text-red-500", bg: "bg-red-500/10" },
+  delivered: { icon: CheckCircle2, label: "Delivered", color: "text-slate-400", bg: "bg-slate-400/10" },
+  cancelled: { icon: XCircle, label: "Cancelled", color: "text-red-500", bg: "bg-red-500/10" },
 };
 
 export function OrderCard({ order }: { order: Order }) {
@@ -31,19 +31,19 @@ export function OrderCard({ order }: { order: Order }) {
             <p className="text-sm text-muted-foreground">{order.restaurantName}</p>
           </div>
         </div>
-        <Badge variant="secondary" className={cn(config.color)}>{config.label}</Badge>
+        <Badge className={cn(config.color)}>{config.label}</Badge>
       </div>
       <div className="mt-4 space-y-1">
-        {order.items.map((item, i) => (
+        {order.items.map((cartItem, i) => (
           <div key={i} className="flex justify-between text-sm">
-            <span>{item.quantity}× {item.name}</span>
-            <span className="text-muted-foreground">${(item.price * item.quantity).toFixed(2)}</span>
+            <span>{cartItem.quantity}× {cartItem.item.name}</span>
+            <span className="text-muted-foreground">${((cartItem.item.priceCents * cartItem.quantity) / 100).toFixed(2)}</span>
           </div>
         ))}
       </div>
       <div className="mt-4 flex items-center justify-between border-t pt-3">
         <span className="text-sm text-muted-foreground">Total</span>
-        <span className="font-bold">${order.total.toFixed(2)}</span>
+        <span className="font-bold">${(order.totalCents / 100).toFixed(2)}</span>
       </div>
       {!reduced && order.status === "preparing" && (
         <motion.div
