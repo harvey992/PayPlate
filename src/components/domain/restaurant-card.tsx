@@ -1,12 +1,15 @@
-import { Star, Clock, MapPin } from "lucide-react";
+import { Star, Clock, MapPin, Heart } from "lucide-react";
 import type { Restaurant } from "@/types/payplate";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useFavorites } from "@/contexts/favorites-context";
 import { cn } from "@/lib/utils";
 
 export function RestaurantCard({ restaurant, onClick }: { restaurant: Restaurant; onClick?: () => void }) {
   const reduced = usePrefersReducedMotion();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const favorited = isFavorite(restaurant.id);
 
   return (
     <Card
@@ -27,6 +30,21 @@ export function RestaurantCard({ restaurant, onClick }: { restaurant: Restaurant
         {restaurant.discountLabel && (
           <Badge variant="success" className="absolute right-3 top-3">{restaurant.discountLabel}</Badge>
         )}
+        <button
+          type="button"
+          aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleFavorite(restaurant.id);
+          }}
+          className="absolute right-3 bottom-3 grid size-8 place-items-center rounded-full bg-white/90 backdrop-blur-sm transition-transform active:scale-90"
+        >
+          <Heart
+            size={16}
+            className={favorited ? "fill-danger text-danger" : "text-dark"}
+            strokeWidth={2}
+          />
+        </button>
         <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
           <div>
             <h3 className="text-lg font-bold text-white drop-shadow-md">{restaurant.name}</h3>
