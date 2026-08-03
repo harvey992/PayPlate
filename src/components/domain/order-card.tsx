@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Clock, CheckCircle2, ChefHat, XCircle } from "lucide-react";
+import { Clock, CircleCheck as CheckCircle2, ChefHat, Circle as XCircle } from "lucide-react";
 import type { Order, OrderStatus } from "@/types/payplate";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
