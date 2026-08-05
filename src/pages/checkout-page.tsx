@@ -49,7 +49,7 @@ export function CheckoutPage() {
   return (
     <AppShell>
       <div className="space-y-6">
-        <div className="flex items-center gap-3"><button onClick={() => navigate("/cart")} aria-label="Back to cart" className="grid size-10 place-items-center rounded-xl bg-card ring-1 ring-border"><ArrowLeft size={18} /></button><div><h1 className="font-heading text-2xl font-black lg:text-3xl">Checkout</h1><p className="text-sm text-muted-foreground">Review and place your order</p></div></div>
+        <div className="flex items-center gap-3"><button onClick={() => navigate("/cart")} className="grid size-10 place-items-center rounded-xl bg-card ring-1 ring-border"><ArrowLeft size={18} /></button><div><h1 className="font-heading text-2xl font-black lg:text-3xl">Checkout</h1><p className="text-sm text-muted-foreground">Review and place your order</p></div></div>
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="space-y-4 lg:col-span-2">
             {/* Order type */}

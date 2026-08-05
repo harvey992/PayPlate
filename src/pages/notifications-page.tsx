@@ -1,35 +1,18 @@
-import { useEffect, useMemo } from "react";
-import { Bell, ShoppingBag, Gift, Tag, RotateCcw, CircleCheck as CheckCircle2, XCircle } from "lucide-react";
+import { Bell, ShoppingBag, Gift, Tag } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Badge } from "@/components/ui/badge";
 import { timeAgo } from "@/services/payplate-data";
-import { useWallet } from "@/contexts/wallet-context";
-import { useOrders } from "@/contexts/orders-context";
-import { buildNotifications, markNotificationsSeen, type AppNotification } from "@/lib/notifications";
 
-const ICONS: Record<AppNotification["kind"], { icon: React.ReactNode; color: string }> = {
-  topup: { icon: <Gift size={20} />, color: "bg-rewards/10 text-rewards" },
-  reward: { icon: <Gift size={20} />, color: "bg-rewards/10 text-rewards" },
-  payment: { icon: <ShoppingBag size={20} />, color: "bg-primary/10 text-primary" },
-  refund: { icon: <RotateCcw size={20} />, color: "bg-blue-500/10 text-blue-500" },
-  order_ready: { icon: <Tag size={20} />, color: "bg-primary/10 text-primary" },
-  order_delivered: { icon: <CheckCircle2 size={20} />, color: "bg-success/10 text-success" },
-  order_cancelled: { icon: <XCircle size={20} />, color: "bg-danger/10 text-danger" },
-};
+const mockNotifications = [
+  { id: "n1", icon: <Gift size={20} />, title: "You earned 50 reward points!", desc: "From your order at Burger Lab", time: "2026-07-29T14:35:00Z", color: "bg-rewards/10 text-rewards" },
+  { id: "n2", icon: <Tag size={20} />, title: "New student offer available", desc: "20% off all pizzas at Pizza Studio", time: "2026-07-29T10:00:00Z", color: "bg-primary/10 text-primary" },
+  { id: "n3", icon: <ShoppingBag size={20} />, title: "Your order is being prepared", desc: "Burger Lab — Classic Cheeseburger", time: "2026-07-28T14:31:00Z", color: "bg-primary/10 text-primary" },
+  { id: "n4", icon: <Bell size={20} />, title: "Welcome to PayPlate!", desc: "Complete your student verification to unlock discounts.", time: "2026-07-28T09:00:00Z", color: "bg-muted text-muted-foreground" },
+];
 
 export function NotificationsPage() {
-  const { transactions } = useWallet();
-  const { orders } = useOrders();
-
-  const notifications = useMemo(() => buildNotifications(transactions, orders), [transactions, orders]);
-
-  // Visiting this page marks everything as read (clears the bell badge).
-  useEffect(() => {
-    markNotificationsSeen();
-  }, []);
-
   return (
     <AppShell>
       <div className="mx-auto max-w-2xl space-y-6">
@@ -38,7 +21,7 @@ export function NotificationsPage() {
           <p className="mt-1 text-sm text-muted-foreground">Stay up to date with your orders and rewards</p>
         </div>
 
-        {notifications.length === 0 ? (
+        {mockNotifications.length === 0 ? (
           <EmptyState
             icon={<Bell size={32} />}
             title="No notifications yet"
@@ -46,23 +29,20 @@ export function NotificationsPage() {
           />
         ) : (
           <div className="space-y-3">
-            {notifications.map((n) => {
-              const { icon, color } = ICONS[n.kind];
-              return (
-                <Card key={n.id} className="flex items-start gap-3">
-                  <div className={`grid size-10 shrink-0 place-items-center rounded-xl ${color}`}>
-                    {icon}
+            {mockNotifications.map((n) => (
+              <Card key={n.id} className="flex items-start gap-3">
+                <div className={`grid size-10 shrink-0 place-items-center rounded-xl ${n.color}`}>
+                  {n.icon}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-bold">{n.title}</h3>
+                    <Badge variant="default" className="shrink-0">{timeAgo(n.time)}</Badge>
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <h3 className="font-bold">{n.title}</h3>
-                      <Badge variant="default" className="shrink-0">{timeAgo(n.date)}</Badge>
-                    </div>
-                    <p className="mt-1 text-sm text-muted-foreground">{n.desc}</p>
-                  </div>
-                </Card>
-              );
-            })}
+                  <p className="mt-1 text-sm text-muted-foreground">{n.desc}</p>
+                </div>
+              </Card>
+            ))}
           </div>
         )}
       </div>

@@ -1,15 +1,13 @@
-import { Star, Clock, MapPin, Heart } from "lucide-react";
+import { motion } from "framer-motion";
+import { Star, Clock, MapPin } from "lucide-react";
 import type { Restaurant } from "@/types/payplate";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
-import { useFavorites } from "@/contexts/favorites-context";
 import { cn } from "@/lib/utils";
 
 export function RestaurantCard({ restaurant, onClick }: { restaurant: Restaurant; onClick?: () => void }) {
   const reduced = usePrefersReducedMotion();
-  const { isFavorite, toggleFavorite } = useFavorites();
-  const favorited = isFavorite(restaurant.id);
 
   return (
     <Card
@@ -24,29 +22,6 @@ export function RestaurantCard({ restaurant, onClick }: { restaurant: Restaurant
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        {!restaurant.isOpen && (
-          <Badge variant="danger" className="absolute left-3 top-3">Closed</Badge>
-        )}
-        <div className="absolute right-3 top-3 flex flex-col items-end gap-2">
-          {restaurant.discountLabel && (
-            <Badge variant="success">{restaurant.discountLabel}</Badge>
-          )}
-          <button
-            type="button"
-            aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleFavorite(restaurant.id);
-            }}
-            className="grid size-8 place-items-center rounded-full bg-white/90 backdrop-blur-sm transition-transform active:scale-90"
-          >
-            <Heart
-              size={16}
-              className={favorited ? "fill-danger text-danger" : "text-dark"}
-              strokeWidth={2}
-            />
-          </button>
-        </div>
         <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
           <div>
             <h3 className="text-lg font-bold text-white drop-shadow-md">{restaurant.name}</h3>
@@ -57,7 +32,7 @@ export function RestaurantCard({ restaurant, onClick }: { restaurant: Restaurant
           </div>
           <div className="flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 backdrop-blur-sm">
             <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-            <span className="text-xs font-bold text-dark">{restaurant.rating.toFixed(1)}</span>
+            <span className="text-xs font-bold">{restaurant.rating.toFixed(1)}</span>
           </div>
         </div>
       </div>

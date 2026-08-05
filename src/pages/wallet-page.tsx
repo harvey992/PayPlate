@@ -295,13 +295,7 @@ export function WalletPage() {
             />
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            {tier === "diamond"
-              ? "Max tier reached!"
-              : (() => {
-                  const nextThreshold = tier === "bronze" ? 500 : tier === "silver" ? 800 : 2000;
-                  const nextTierName = tier === "bronze" ? "Silver" : tier === "silver" ? "Gold" : "Diamond";
-                  return `Earn ${nextThreshold - rewardPoints} more points to reach ${nextTierName}`;
-                })()}
+            {tier === "diamond" ? "Max tier reached!" : `Earn ${2000 - rewardPoints} more points to reach ${tier === "bronze" ? "Silver" : tier === "silver" ? "Gold" : "Diamond"}`}
           </p>
         </Card>
 

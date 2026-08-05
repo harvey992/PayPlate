@@ -3,9 +3,6 @@ import { Search, Moon, Sun, Code, ShoppingBag, MapPin, Bell } from "lucide-react
 import { useTheme } from "@/contexts/theme-context";
 import { useCart } from "@/contexts/cart-context";
 import { useAuth } from "@/contexts/auth-context";
-import { useWallet } from "@/contexts/wallet-context";
-import { useOrders } from "@/contexts/orders-context";
-import { buildNotifications, countUnread } from "@/lib/notifications";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
@@ -13,12 +10,8 @@ export function TopNavigation() {
   const { theme, toggleTheme, setTheme } = useTheme();
   const { itemCount } = useCart();
   const { isAuthenticated } = useAuth();
-  const { transactions } = useWallet();
-  const { orders } = useOrders();
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
-
-  const unreadCount = isAuthenticated ? countUnread(buildNotifications(transactions, orders)) : 0;
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -60,9 +53,7 @@ export function TopNavigation() {
                 aria-label="Notifications"
               >
                 <Bell size={18} />
-                {unreadCount > 0 && (
-                  <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-danger ring-2 ring-card" />
-                )}
+                <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-danger ring-2 ring-card" />
               </Link>
 
               <Link
